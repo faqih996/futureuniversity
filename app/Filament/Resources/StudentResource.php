@@ -39,7 +39,8 @@ class StudentResource extends Resource
                 Forms\Components\TextInput::make('jalur')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Textarea::make('image')
+                Forms\Components\FileUpload::make('image')
+                    ->image()
                     ->required()
                     ->columnSpanFull(),
                 Forms\Components\TextInput::make('programstudi_1')
@@ -55,6 +56,9 @@ class StudentResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\ImageColumn::make('image')
+                    ->width(80)
+                    ->height(80),
                 Tables\Columns\TextColumn::make('namalengkap')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('namapanggilan')

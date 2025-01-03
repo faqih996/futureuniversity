@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use AmidEsfahani\FilamentTinyEditor\TinyEditor;
 use App\Filament\Resources\AnnouncementResource\Pages;
 use App\Filament\Resources\AnnouncementResource\RelationManagers;
 use App\Models\Announcement;
@@ -12,6 +13,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 
 class AnnouncementResource extends Resource
 {
@@ -23,7 +25,19 @@ class AnnouncementResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('title')
+                    ->required()
+                    ->maxLength(255),
+                TinyEditor::make('content')
+                    ->required()
+                    ->columnSpanFull(),
+                Forms\Components\TextInput::make('users_id')
+                    ->default(Auth::user()->id)
+                    ->readOnly(),
+                Forms\Components\FileUpload::make('image')
+                    ->image()
+                    ->required()
+                    ->columnSpanFull(),
             ]);
     }
 
@@ -31,7 +45,22 @@ class AnnouncementResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('title')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('content')
+                    ->wrap()
+                    ->html()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('user.name')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //

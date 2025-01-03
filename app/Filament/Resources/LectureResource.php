@@ -42,7 +42,8 @@ class LectureResource extends Resource
                 Forms\Components\TextInput::make('topik')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Textarea::make('image')
+                Forms\Components\FileUpload::make('image')
+                    ->image()
                     ->required()
                     ->columnSpanFull(),
             ]);
@@ -56,14 +57,11 @@ class LectureResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('nidn')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('pendidikan')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('jabatan')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('email')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('topik')
-                    ->searchable(),
+                Tables\Columns\ImageColumn::make('image')
+                    ->width(80)
+                    ->height(80),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

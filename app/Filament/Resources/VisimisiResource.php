@@ -45,6 +45,17 @@ class VisimisiResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('visi')
+                    ->wrap()
+                    ->html()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('misi')
+                    ->wrap()
+                    ->html()
+                    ->searchable(),
+                Tables\Columns\ImageColumn::make('image')
+                    ->width(80)
+                    ->height(80),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

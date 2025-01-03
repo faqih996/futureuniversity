@@ -40,7 +40,9 @@ class FacilityResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('images'),
+                Tables\Columns\ImageColumn::make('image')
+                    ->width(80)
+                    ->height(80),
                 Tables\Columns\TextColumn::make('content')
                     ->wrap()
                     ->html()

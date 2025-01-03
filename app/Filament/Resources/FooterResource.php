@@ -58,7 +58,9 @@ class FooterResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('image'),
+                Tables\Columns\ImageColumn::make('image')
+                    ->width(80)
+                    ->height(80),
                 Tables\Columns\TextColumn::make('link_instagram')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('link_youtube')
