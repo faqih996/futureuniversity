@@ -9,6 +9,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -23,7 +24,8 @@ class CooperationResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Textarea::make('image')
+                Forms\Components\FileUpload::make('image')
+                    ->image()
                     ->required()
                     ->columnSpanFull(),
             ]);
@@ -33,6 +35,9 @@ class CooperationResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\ImageColumn::make('image')
+                    ->width(40)
+                    ->height(40),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
